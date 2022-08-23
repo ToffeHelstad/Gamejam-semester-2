@@ -7556,6 +7556,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1235409375}
+  currentHealth: 0
+  timeRemaining: 10
+  timerIsRunning: 0
 --- !u!65 &1328048642
 BoxCollider:
   m_ObjectHideFlags: 0
