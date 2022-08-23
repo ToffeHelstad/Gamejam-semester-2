@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
     public bool isInRange;
     public KeyCode interactKey;
+    public GameObject Text;
     public UnityEvent interactAction;
+
+    private void Start()
+    {
+        Text.SetActive(false);
+    }
 
     private void Update()
     {
@@ -25,6 +32,7 @@ public class Interact : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Text.SetActive(true);
             isInRange = true;
             Debug.Log("Player is in range");
         }
@@ -34,6 +42,7 @@ public class Interact : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Text.SetActive(false);
             isInRange = false;
             Debug.Log("Player now not in range");
         }
