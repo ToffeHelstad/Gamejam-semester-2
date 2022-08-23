@@ -8,7 +8,7 @@ public class BarSCript : MonoBehaviour
 
     [SerializeField] private Image healthBar;
 
-    private float maxHealth = 200f;
+    private bool inRange = false;
     private float currentHealth;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class BarSCript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inRange && Input.GetKeyDown(KeyCode.Space))
         {
             currentHealth += 0.05f;
             UpdateHealthbar();
@@ -30,5 +30,15 @@ public class BarSCript : MonoBehaviour
     private void UpdateHealthbar()
     {
         healthBar.fillAmount = currentHealth;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        inRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inRange = false;
     }
 }
