@@ -25,6 +25,12 @@ public class GameController : MonoBehaviour
 
     private string firstGuessPuzzle, secondGuessPuzzle;
 
+    //eik add
+    public GameManager GameManager;
+    private bool timerOn;
+    public float timer;
+    public GameObject timerTxt;
+    public GameObject winTxt;
 
     private void Awake()
     {
@@ -40,6 +46,15 @@ public class GameController : MonoBehaviour
         gameGuesses = gamePuzzles.Count / 2;
 
         Cursor.lockState = CursorLockMode.None;
+
+        timer = 40;
+        timerOn = true;
+    }
+
+    public void Update()
+    {
+        EiriksTesteScript();
+        Timer();
     }
 
     void GetButtons()
@@ -139,7 +154,7 @@ public class GameController : MonoBehaviour
             btns[secondGuessIndex].interactable = true;
         }
 
-        yield return new WaitForSeconds(.5f);
+        //yield return new WaitForSeconds(.1f);
 
         firstGuess = secondGuess = false;
     }
@@ -152,8 +167,14 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("Game Finished");
             Debug.Log("It took you" + countGuesses + "many guess(es) to finish the game");
-
+            GameManager.minigameWon++;
             SceneManager.LoadScene(1);
+            if (GameManager.minigameWon >= 2)
+            {
+                GameManager.LoadWinScreen();
+            }
+
+
         }
     }
 
@@ -165,6 +186,31 @@ public class GameController : MonoBehaviour
             int randomIndex = Random.Range(i, list.Count);
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
+        }
+    }
+    public void Timer()
+    {
+        if (timerOn)
+        {
+            timer -= Time.deltaTime;
+            timerTxt.GetComponent<TMPro.TextMeshProUGUI>().text = timer.ToString();
+        }
+        if (timer < 0)
+        {
+            timerOn = false;
+            winTxt.GetComponent<TMPro.TextMeshProUGUI>().text = "Timeout!";
+            SceneManager.LoadScene("Overworld");
+        }
+    }
+
+    public void EiriksTesteScript()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            print("h");
+            GameManager.minigameWon++;
+            print(GameManager.minigameWon);
+            SceneManager.LoadScene(1);
         }
     }
 }
