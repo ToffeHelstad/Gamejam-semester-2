@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BarSCript : MonoBehaviour
 {
@@ -14,27 +15,38 @@ public class BarSCript : MonoBehaviour
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
 
-    // Start is called before the first frame update
+    public string winText;
+    public string loseText;
+
+    public TMP_Text testtodisplayingameworld;
+
     void Start()
     {
         currentHealth = 0f;
         UpdateHealthbar();
-        timerIsRunning = true;
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
 
         if (inRange && Input.GetKeyDown(KeyCode.Space))
         {
-            currentHealth += 0.02f;
+            if (currentHealth < 1f)
+            {
+                currentHealth += 0.02f;
+            }
+            else
+            {
+                currentHealth = 1f;
+            }
             UpdateHealthbar();
+            timerIsRunning = true;
+            
         }
-
         if (timerIsRunning)
         {
-            if(timeRemaining > 0)
+            if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
             }
@@ -46,13 +58,33 @@ public class BarSCript : MonoBehaviour
             }
         }
 
+        testtodisplayingameworld.text = timeRemaining.ToString();
+
+        if(currentHealth==1f && timeRemaining > 0)
+        {
+            testtodisplayingameworld.text = winText;
+        }
+        else if (currentHealth < 1 && timeRemaining == 0)
+        {
+            testtodisplayingameworld.text = loseText;
+            ResetHealthBar();
+
+        }
+
     }
-
-
-
+    
     private void UpdateHealthbar()
     {
-        healthBar.fillAmount = currentHealth;
+
+            healthBar.fillAmount = currentHealth;
+        
+    }
+
+    private void ResetHealthBar()
+    {
+        healthBar.fillAmount = 0;
+        timeRemaining = 10f;
+        currentHealth = 0f;
     }
 
     private void OnTriggerEnter(Collider other)
