@@ -16,7 +16,7 @@ public class Typeracer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CorrectString = "hei jeg heter eplemann og jeg har en tann.";
+        CorrectString = "hei";
         correctTextObj.GetComponent<TMPro.TextMeshPro>().text = "'" + CorrectString + "'";
 
         writtenText = GetComponentInChildren<TMPro.TextMeshPro>().text;
