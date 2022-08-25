@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        puzzles = Resources.LoadAll<Sprite>("Memory/Sprites/piecesYellow");
+        puzzles = Resources.LoadAll<Sprite>("Memory/Sprites/Card");
     }
 
     private void Start()
@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour
         AddGamePuzzles();
         Shuffle (gamePuzzles);
         gameGuesses = gamePuzzles.Count / 2;
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void GetButtons()
@@ -92,6 +94,7 @@ public class GameController : MonoBehaviour
             firstGuessPuzzle = gamePuzzles[firstGuessIndex].name;
 
             btns[firstGuessIndex].image.sprite = gamePuzzles[firstGuessIndex];
+            btns[firstGuessIndex].interactable = false;
         }
         else if (!secondGuess)
         {
@@ -102,6 +105,7 @@ public class GameController : MonoBehaviour
             secondGuessPuzzle = gamePuzzles[secondGuessIndex].name;
 
             btns[secondGuessIndex].image.sprite = gamePuzzles[secondGuessIndex];
+            btns[secondGuessIndex].interactable = false;
 
             countGuesses++;
 
@@ -130,7 +134,9 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(.5f);
 
             btns[firstGuessIndex].image.sprite = bgImage;
+            btns[firstGuessIndex].interactable = true;
             btns[secondGuessIndex].image.sprite = bgImage;
+            btns[secondGuessIndex].interactable = true;
         }
 
         yield return new WaitForSeconds(.5f);
