@@ -11,6 +11,7 @@ public class FPSCamera : MonoBehaviour
     private Camera mainCamera;
     private float xRotation;
 
+
     void Start()
     {
         mainCamera = Camera.main;                           //Fetches Main Camera in scene
@@ -19,6 +20,8 @@ public class FPSCamera : MonoBehaviour
 
     void Update()
     {
+        
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;        //Moves Mouse's X Axis
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;        //Moves Mouse's Y Axis
 
@@ -27,5 +30,7 @@ public class FPSCamera : MonoBehaviour
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         transform.Rotate(Vector3.up * mouseX);
+
+        
     }
 }

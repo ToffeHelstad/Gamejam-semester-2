@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Move();
         }
+
     }
 
     void Move()                                                                 //Function that allows movement
@@ -73,4 +74,5 @@ public class PlayerMovement : MonoBehaviour
         Vector3 motion = movementDir * runSpeed * Time.deltaTime;
         cc.Move(motion);
     }
+    
 }
