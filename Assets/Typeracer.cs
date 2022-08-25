@@ -8,6 +8,11 @@ public class Typeracer : MonoBehaviour
     public GameObject correctTextObj;
     public string CorrectString = "";
     public string writtenText;
+    private bool timerOn;
+    public float timer;
+    public GameObject timerTxt;
+    public GameObject winTxt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +20,9 @@ public class Typeracer : MonoBehaviour
         correctTextObj.GetComponent<TMPro.TextMeshPro>().text = "'" + CorrectString + "'";
 
         writtenText = GetComponentInChildren<TMPro.TextMeshPro>().text;
+
+        timerOn = true;
+        timer = 10;
     }
 
     // Update is called once per frame
@@ -22,6 +30,7 @@ public class Typeracer : MonoBehaviour
     {
         ShowText();
         CheckTextIf();
+        Timer();
     }
 
     public void ShowText()
@@ -64,6 +73,22 @@ public class Typeracer : MonoBehaviour
         {
             print("O");
             textObj.GetComponent<TMPro.TextMeshPro>().text = "nice";
+            timerOn = false;
+        }
+    }
+
+    public void Timer()
+    {
+        if (timerOn)
+        {
+            timer -= Time.deltaTime;
+            timerTxt.GetComponent<TMPro.TextMeshPro>().text = timer.ToString();
+        }
+        if (timer < 0)
+        {
+            winTxt.GetComponent<TMPro.TextMeshPro>().text = "Timeout!";
+            timerOn = false;
+            timer = 10;
         }
     }
 
