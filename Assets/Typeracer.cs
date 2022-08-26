@@ -24,13 +24,14 @@ public class Typeracer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CorrectString = "if object equals 10, instantiate new physics raycast, input.getkeydown keycode c";
+        CorrectString = "if object equals 10 instantiate new physics raycast input.getkeydown.keycode.c";
         correctTextObj.GetComponent<TMPro.TextMeshPro>().text = "'" + CorrectString + "'";
+        // if object equals 10, 
 
         writtenText = writeTxt.GetComponent<TMPro.TextMeshPro>().text;
 
         timerOn = true;
-        timer = 40;
+        timer = 50;
     }
 
     // Update is called once per frame
